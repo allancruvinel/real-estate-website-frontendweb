@@ -1,0 +1,91 @@
+.immobileContent{
+    display: flex;
+    justify-content: space-between;
+}
+.immobileleftSection{
+    width: 70%;
+}
+.immobileDivTitle{
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+}
+.immobilePhotoSection img{
+    width: 100%;
+}
+.immobileDescription{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #959595;
+    font-weight: bold;
+    text-align: justify;
+    margin: 20px 0;
+    
+}
+
+.immobileRightSection{
+    width: 27%;
+    margin: 15px 0px;
+}
+.immobileInfo{
+    width: 100%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    height: 350px;
+    border: solid #959595;
+    border-radius: 10px;
+    
+}
+.immobilePrice{
+    margin: 10px 0px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.immobileInfo table{
+    margin: auto;
+}
+
+.columnName{
+    text-align: left;
+    width: 100px;
+    color: #959595;
+    font-weight: bold;
+}
+.columnName2{
+    text-align: center;
+    width: 100px;
+    color: black;
+    font-weight: bold;
+}
+
+.beginOfIcons .columnName{
+    text-align: center;
+}
+
+.beginOfIcons{
+    height: 50px;
+}
+.immobileIcon{
+    width: 40px;
+}
+
+
+.immobileContact{
+    margin: 10px 0;
+    width: 100%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    height: 150px;
+    border: solid #959595;
+    border-radius: 10px;
+    
+}
+.contactIcons{
+    display: flex;
+    justify-content: space-between;
+}
+.contactIcon{
+    width: 80px;
+    margin: 0px 20px;
+}
