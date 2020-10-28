@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import logoImg from '../../assets/logo.png';
 import apartImg from '../../assets/30682992.jpg';
@@ -8,15 +8,30 @@ import carIcon from '../../assets/car_icon.svg';
 import toiletIcon from '../../assets/toilet_icon.svg';
 import mailIcon from '../../assets/mail_icon.svg';
 import whatsappIcon from '../../assets/whatsapp_icon.svg';
-import {Link} from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import api from '../../services/api';
 
 import './style.css';
 
-export default function Immobile(){
+export default function Immobile() {
     let linkexterno = 'http://www.google.com.br';
+
+    const { id } = useParams();
+    const [apartment, setApartment] = useState([{}]);
+    useEffect(() => {
+        console.log(id);
+        api.get(`apartments/${id}`).then(response => {
+            setApartment(response.data);
+        })
+    }, [id]);
+
+
+
     return (
-        <div> 
+        <div>
             <header>
+                {console.log(apartment.images[0])}
+
                 <div className="topo">
                     <div className="container" >
                         <p>(13) 9 9718 5549</p>
@@ -25,7 +40,7 @@ export default function Immobile(){
                 </div>
                 <div className="menu">
                     <div className="container">
-                        <img src={logoImg} alt="logo"/>
+                        <img src={logoImg} alt="logo" />
                         <p>Creci: 2352:56</p>
                         <Link className="botao_menu" to="/about">SOBRE</Link>
                         <Link className="botao_menu" to="/search">IMÓVEIS</Link>
@@ -39,22 +54,22 @@ export default function Immobile(){
                     <div className="immobileContent">
                         <section className="immobileleftSection">
                             <div className="immobileDivTitle">
-                                <h1 className="immobileTitle">Lindo apartamento em riviera de são lourenço</h1>
-                                <h1 className="immobileRef">Ref 3652</h1>
+                                <h1 className="immobileTitle">{}</h1>
+                                <h1 className="immobileRef">ref {}</h1>
                             </div>
 
                             <div className="immobilePhotoSection">
-                                <img src={apartImg} alt="logo"/>
+                                <img src="" alt="logo" />
                             </div>
-                            <p className ="immobileDescription"> Bla bla bla bla bla bla bla bla
-                             bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                              bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                               bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                                bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                                 bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                                  bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                                   bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                                    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+                            <p className="immobileDescription"> Bla bla bla bla bla bla bla bla
+                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
                                      bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla </p>
                         </section>
                         <section className="immobileRightSection">
@@ -74,19 +89,19 @@ export default function Immobile(){
                                         <td>Não</td>
                                     </tr>
                                     <tr className="beginOfIcons">
-                                        <td className="columnName"> <img className="immobileIcon" src={areaIcon} alt=""/> </td>
+                                        <td className="columnName"> <img className="immobileIcon" src={areaIcon} alt="" /> </td>
                                         <td className="columnName2">495m²</td>
                                     </tr>
                                     <tr className="beginOfIcons">
-                                        <td className="columnName"> <img className="immobileIcon" src={carIcon} alt=""/> </td>
+                                        <td className="columnName"> <img className="immobileIcon" src={carIcon} alt="" /> </td>
                                         <td className="columnName2">2</td>
                                     </tr>
                                     <tr className="beginOfIcons">
-                                        <td className="columnName"> <img className="immobileIcon" src={bedIcon} alt=""/> </td>
+                                        <td className="columnName"> <img className="immobileIcon" src={bedIcon} alt="" /> </td>
                                         <td className="columnName2">3</td>
                                     </tr>
                                     <tr className="beginOfIcons">
-                                        <td className="columnName"> <img className="immobileIcon" src={toiletIcon} alt=""/> </td>
+                                        <td className="columnName"> <img className="immobileIcon" src={toiletIcon} alt="" /> </td>
                                         <td className="columnName2">4</td>
                                     </tr>
                                 </table>
@@ -94,8 +109,8 @@ export default function Immobile(){
                             <div className="immobileContact">
                                 <h1 className="immobilePrice">Contato</h1>
                                 <div className="contactIcons">
-                                    <a href={linkexterno}><img className="contactIcon" src={mailIcon} alt="email"/></a>
-                                    <a href={linkexterno}><img className="contactIcon" src={whatsappIcon} alt="whatsapp"/></a>
+                                    <a href={linkexterno}><img className="contactIcon" src={mailIcon} alt="email" /></a>
+                                    <a href={linkexterno}><img className="contactIcon" src={whatsappIcon} alt="whatsapp" /></a>
                                 </div>
                             </div>
                         </section>
