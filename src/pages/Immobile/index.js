@@ -21,7 +21,7 @@ export default function Immobile() {
     useEffect(() => {
         api.get(`apartments/${id}`).then(response => {
             setApartment(response.data);
-            
+
         })
     }, []);
 
@@ -60,34 +60,25 @@ export default function Immobile() {
                         <section className="immobileleftSection">
                             <div className="immobileDivTitle">
                                 <h1 className="immobileTitle">{apartment.titulo}</h1>
-                                <h1 className="immobileRef">ref {}</h1>
+                                <h1 className="immobileRef">ref {apartment.id}</h1>
                             </div>
 
                             <div className="immobilePhotoSection">
                                 <img src={apartment.images[0].url} alt="logo" />
                             </div>
-                            <p className="immobileDescription"> Bla bla bla bla bla bla bla bla
-                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                                     bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla </p>
+                            <p className="immobileDescription"> {apartment.descricao} </p>
                         </section>
                         <section className="immobileRightSection">
                             <div className="immobileInfo">
-                                <h1 className="immobilePrice">R$1.350.000,00</h1>
+                                <h1 className="immobilePrice">R${apartment.preco}</h1>
                                 <table>
                                     <tr>
                                         <td className="columnName">cond</td>
-                                        <td>R$ 5.000,00</td>
+                                        <td>R$ {apartment.cond}</td>
                                     </tr>
                                     <tr>
                                         <td className="columnName">IPTU</td>
-                                        <td>R$ 5.000,00</td>
+                                        <td>R$  {apartment.iptu}</td>
                                     </tr>
                                     <tr>
                                         <td className="columnName">Permuta</td>
@@ -95,19 +86,19 @@ export default function Immobile() {
                                     </tr>
                                     <tr className="beginOfIcons">
                                         <td className="columnName"> <img className="immobileIcon" src={areaIcon} alt="" /> </td>
-                                        <td className="columnName2">495m²</td>
+                                        <td className="columnName2"> {apartment.aUtil}m²</td>
                                     </tr>
                                     <tr className="beginOfIcons">
                                         <td className="columnName"> <img className="immobileIcon" src={carIcon} alt="" /> </td>
-                                        <td className="columnName2">2</td>
+                                        <td className="columnName2">{apartment.vGaragem}</td>
                                     </tr>
                                     <tr className="beginOfIcons">
                                         <td className="columnName"> <img className="immobileIcon" src={bedIcon} alt="" /> </td>
-                                        <td className="columnName2">3</td>
+                                        <td className="columnName2">{apartment.dorm}</td>
                                     </tr>
                                     <tr className="beginOfIcons">
                                         <td className="columnName"> <img className="immobileIcon" src={toiletIcon} alt="" /> </td>
-                                        <td className="columnName2">4</td>
+                                        <td className="columnName2">{apartment.banh}</td>
                                     </tr>
                                 </table>
                             </div>

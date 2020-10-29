@@ -188,7 +188,7 @@ export default function Register() {
                             <p>Informações escondidos</p>
                             <input type="text" name="bairro" value={bairro} onChange={e => setBairro(e.target.value)} placeholder="Bairro" />
                             <input type="text" name="nmPredio" value={nmPredio} onChange={e => setNmPredio(e.target.value)} placeholder="Nome do Prédio" />
-                            <input type="text" name="nrTorre" value={nrTorre} onChange={e => setNrTorre(e.target.value)} placeholder="Numero da Torre" />
+                            <input type="number" name="nrTorre" value={nrTorre} onChange={e => setNrTorre(e.target.value)} placeholder="Numero da Torre" />
                             <input type="text" name="nrApto" value={nrApto} onChange={e => setNrApto(e.target.value)} placeholder="Numero do Apartamento" />
                             <label htmlFor="dtVenc">Vencimento</label>
                             <input type="date" name="dtVenc" value={dtVenc} onChange={e => setDtVenc(e.target.value)} />
