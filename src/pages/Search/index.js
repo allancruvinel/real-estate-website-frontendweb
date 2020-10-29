@@ -9,6 +9,9 @@ import api from '../../services/api';
 
 import '../Search/style.css'
 import { useState } from 'react';
+
+
+
 export default function Home() {
 
     const [apartments, setApartments] = useState([]);
@@ -18,6 +21,10 @@ export default function Home() {
             setApartments(response.data)
         })
     }, []);
+
+    if (!apartments) {
+        return <p>carregando...</p>;
+    }
 
     return (
         <div>
@@ -54,12 +61,6 @@ export default function Home() {
                     <p className="destacado">Apartamentos</p>
 
                     <section className="propertiesSearch">
-                        <Link to="/apartments">
-                            <div className="immobileSearch" style={{ backgroundImage: `url(${apartImg})` }}>
-
-                                <p className="immobileTitle">Apartamento</p><p className="immobilePrice">R$2.000.000,00</p>
-                            </div>
-                        </Link>
                         {
                             apartments.map(apartment => {
                                 console.log(apartment);

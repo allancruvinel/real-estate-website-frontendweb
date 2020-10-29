@@ -13,24 +13,29 @@ import api from '../../services/api';
 
 import './style.css';
 
-export default function Immobile() {
-    let linkexterno = 'http://www.google.com.br';
 
+
+export default function Immobile() {
     const { id } = useParams();
-    const [apartment, setApartment] = useState([{}]);
+    const [apartment, setApartment] = useState();
     useEffect(() => {
-        console.log(id);
         api.get(`apartments/${id}`).then(response => {
             setApartment(response.data);
+            
         })
-    }, [id]);
+    }, []);
+
+    if (!apartment) {
+        return <p>carregando...</p>;
+    }
+
 
 
 
     return (
         <div>
             <header>
-                {console.log(apartment.images[0])}
+                {console.log(apartment.images[0].url)}
 
                 <div className="topo">
                     <div className="container" >
@@ -54,12 +59,12 @@ export default function Immobile() {
                     <div className="immobileContent">
                         <section className="immobileleftSection">
                             <div className="immobileDivTitle">
-                                <h1 className="immobileTitle">{}</h1>
+                                <h1 className="immobileTitle">{apartment.titulo}</h1>
                                 <h1 className="immobileRef">ref {}</h1>
                             </div>
 
                             <div className="immobilePhotoSection">
-                                <img src="" alt="logo" />
+                                <img src={apartment.images[0].url} alt="logo" />
                             </div>
                             <p className="immobileDescription"> Bla bla bla bla bla bla bla bla
                             bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
@@ -109,8 +114,8 @@ export default function Immobile() {
                             <div className="immobileContact">
                                 <h1 className="immobilePrice">Contato</h1>
                                 <div className="contactIcons">
-                                    <a href={linkexterno}><img className="contactIcon" src={mailIcon} alt="email" /></a>
-                                    <a href={linkexterno}><img className="contactIcon" src={whatsappIcon} alt="whatsapp" /></a>
+                                    <a href=""><img className="contactIcon" src={mailIcon} alt="email" /></a>
+                                    <a href=""><img className="contactIcon" src={whatsappIcon} alt="whatsapp" /></a>
                                 </div>
                             </div>
                         </section>
