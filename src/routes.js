@@ -6,6 +6,7 @@ import Immobile from './pages/Immobile'
 import About from './pages/About'
 import Adm from './pages/Adm'
 import Register from './pages/Register'
+import Contact from './pages/Contact'
 
 export default function Routes(){
     return (
@@ -17,6 +18,7 @@ export default function Routes(){
                 <Route path="/about" component={About}/>
                 <Route path="/adm" component={Adm}/>
                 <Route path="/register" component={Register}/>
+                <Route path="/contact" component={Contact}/>
             </Switch>
 
         </BrowserRouter>

@@ -40,7 +40,8 @@ header{
 .menu .logo img{
     margin-top: 5px;
     float: left;
-    width: 200px;
+    margin-top: 12.5px;
+    height: 45px;
     
 }
 .menu_options p{
