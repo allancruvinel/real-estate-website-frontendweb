@@ -1,7 +1,9 @@
 import React, { Component, useState } from 'react';
+import {useHistory} from 'react-router-dom'
 import Header from '../../components/Header';
 import '../Register/style.css'
 import api from '../../services/api';
+import Cookies from 'universal-cookie';
 
 
 export default function Register() {
@@ -160,6 +162,13 @@ export default function Register() {
         alert("SAINDO DAQUI")
         axios.post('https://api.imgur.com/3/image',fd);
     } */
+    const cookies = new Cookies();
+    const history = useHistory();
+    if (cookies.get('aut')!==`${process.env.REACT_APP_TOKEN_AUT}`) {
+        history.push('/login');
+    }
+
+
     return (
         <div>
             <Header />

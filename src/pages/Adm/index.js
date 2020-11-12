@@ -12,72 +12,12 @@ export default function Adm(){
             <main>
                 <div className="container">
                     
-                    <div className="search">
-                        <p>Encontre seu Imóvel</p>
-                        <form action="/" method="POST">
-                            <input type="text" name="reference" placeholder="Referência"/>
-                            <input type="text" name="price" placeholder="Preço"/>
-                            <a href="http://www.google.com"><img src="../images/searchlogo.svg" alt="Pesquisar"/></a>
-                        </form>
-                    </div>
+                   
 
-                    <p className="destacado">Apartamentos</p>
+                    
 
                     <section className="propertiesSearch">
-                        <Link to="/immobile">
-                            <div className="immobileSearch" style={{backgroundImage:`url(${apartImg})`}}>
-                                
-                                <p className="immobileTitle">Apartamento</p><p className="immobilePrice">R$2.000.000,00</p>
-                            </div>
-                        </Link>
-                        <Link to="/immobile">
-                            <div className="immobileSearch" style={{backgroundImage:`url(${apartImg})`}}>
-                                
-                                <p className="immobileTitle">Apartamento</p><p className="immobilePrice">R$2.000.000,00</p>
-                            </div>
-                        </Link>
-                        <Link to="/immobile">
-                            <div className="immobileSearch" style={{backgroundImage:`url(${apartImg})`}}>
-                                
-                                <p className="immobileTitle">Apartamento</p><p className="immobilePrice">R$2.000.000,00</p>
-                            </div>
-                        </Link>
-                        <Link to="/immobile">
-                            <div className="immobileSearch" style={{backgroundImage:`url(${apartImg})`}}>
-                                
-                                <p className="immobileTitle">Apartamento</p><p className="immobilePrice">R$2.000.000,00</p>
-                            </div>
-                        </Link>
-                        <Link to="/immobile">
-                            <div className="immobileSearch" style={{backgroundImage:`url(${apartImg})`}}>
-                                
-                                <p className="immobileTitle">Apartamento</p><p className="immobilePrice">R$2.000.000,00</p>
-                            </div>
-                        </Link>
-                        <Link to="/immobile">
-                            <div className="immobileSearch" style={{backgroundImage:`url(${apartImg})`}}>
-                                
-                                <p className="immobileTitle">Apartamento</p><p className="immobilePrice">R$2.000.000,00</p>
-                            </div>
-                        </Link>
-                        <Link to="/immobile">
-                            <div className="immobileSearch" style={{backgroundImage:`url(${apartImg})`}}>
-                                
-                                <p className="immobileTitle">Apartamento</p><p className="immobilePrice">R$2.000.000,00</p>
-                            </div>
-                        </Link>
-                        <Link to="/immobile">
-                            <div className="immobileSearch" style={{backgroundImage:`url(${apartImg})`}}>
-                                
-                                <p className="immobileTitle">Apartamento</p><p className="immobilePrice">R$2.000.000,00</p>
-                            </div>
-                        </Link>
-                        <Link to="/immobile">
-                            <div className="immobileSearch" style={{backgroundImage:`url(${apartImg})`}}>
-                                
-                                <p className="immobileTitle">Apartamento</p><p className="immobilePrice">R$2.000.000,00</p>
-                            </div>
-                        </Link>
+                        
                         
                     </section>
 

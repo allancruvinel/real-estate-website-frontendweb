@@ -17,7 +17,8 @@
     font-weight: bold;
     line-height: 80px;
 }
-.campoInput{
+.campoInputLogin{
+    text-align: center;
     width: 100%;
     height: 30px;
     border-radius: 5px;
