@@ -15,6 +15,7 @@
     height: 220px;
     border-radius: 3px;
     background-size: 100% 100%;
+    position:relative;
 
 }
 .immobileSearch .immobileTitle{
@@ -46,7 +47,28 @@
     height: 230px;
     
 }
+.immobileSearch .immobileErase{
+    text-decoration: none;
+    width: 40px;
+    height: 40px;
+    position:absolute;
+    right:    0;
+    bottom:   0;
+}
+.immobileSearch .immobileEdit{
+    text-decoration: none;
+    width: 40px;
+    height: 40px;
+    position:absolute;
+    left:    11px;
+    bottom:   0;
+}
 .immobileSearch:hover{
     transition: .2s;
     opacity: 0.8;
+}
+
+.loadingData h1 {
+    height: 1200px;
+    width: 100%;
 }

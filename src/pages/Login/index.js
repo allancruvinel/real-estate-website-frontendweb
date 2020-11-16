@@ -42,7 +42,7 @@ export default function Contact() {
                     <div className="container">
                         <p>Log in</p>
                         <form onSubmit={checkLogin}>
-                            <input className="campoInputLogin" onChange={e => setUsername(e.target.value)} name="login" type="text" placeholder="login" />
+                            <input className="campoInputLogin" onChange={e => setUsername(e.target.value)} name="login" type="login" placeholder="login" />
                             <input className="campoInputLogin" onChange={e => setPassword(e.target.value)} name="password" type="password" placeholder="senha"/>
                             <input className="btnInput" type="submit" value="Entrar"/>
                         </form>

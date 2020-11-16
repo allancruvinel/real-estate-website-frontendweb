@@ -1,14 +1,23 @@
-import React, { Component, useState } from 'react';
-import {useHistory} from 'react-router-dom'
+import React, { Component, useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom'
 import Header from '../../components/Header';
 import '../Register/style.css'
 import api from '../../services/api';
 import Cookies from 'universal-cookie';
+import { useParams } from 'react-router-dom';
+
+export default function Update() {
 
 
-export default function Register() {
+    const { id } = useParams();
+    const[apartment,setApartment] = useState()
 
-
+    useEffect(() => {
+        
+        api.get(`apartments/${id}`).then(response => {
+            setApartment(response.data);
+        }) 
+    }, []);
 
 
     const [titulo, setTitulo] = useState('');
@@ -36,17 +45,23 @@ export default function Register() {
     const [ativo, setAtivo] = useState(false);
     const [images, setImages] = useState([])
 
+
+
+    //sessão de parametros de atualização do banco
+
+    const [atualizarFotos, setAtualizarFotos] = useState(false);
+
     function handleSelectedImages(event) {
         console.log(event.target.files);
         if (!event.target.files) {
             console.log('entrounoNull')
             return;
         }
-        
+
         const imagesrendered = event.target.files
 
         setImages(imagesrendered)
-        
+
         console.log(images);
     }
 
@@ -79,52 +94,54 @@ export default function Register() {
             images
         }
 
-        console.log(dataraw);
+        alert(bairro);
+
+        return;
 
         const data = new FormData();
 
-        data.append('titulo',titulo)
-        data.append('descricao',descricao)
-        data.append('nrApto',nrApto)
-        data.append('nmPredio',nmPredio)
-        data.append('nrTorre',nrTorre)
-        data.append('preco',preco)
-        data.append('cond',cond)
-        data.append('iptu',iptu)
-        data.append('bairro',bairro)
-        data.append('dtVenc',dtVenc)
-        data.append('aUtil',aUtil)
-        data.append('vGaragem',vGaragem)
-        data.append('banh',banh)
-        data.append('suite',suite)
-        data.append('dorm',dorm)
-        data.append('churras',String(churras))
-        data.append('piscina',String(piscina))
-        data.append('playground',String(playground))
-        data.append('poli',String(poli))
-        data.append('sFestas',String(sFestas))
-        data.append('sauna',String(sauna))
-        data.append('sJogos',String(sJogos))
-        data.append('ativo',String(ativo))
-        
-        for(var i = 0; i<images.length;i++){
-            data.append('images',images[i])
+        data.append('titulo', titulo)
+        data.append('descricao', descricao)
+        data.append('nrApto', nrApto)
+        data.append('nmPredio', nmPredio)
+        data.append('nrTorre', nrTorre)
+        data.append('preco', preco)
+        data.append('cond', cond)
+        data.append('iptu', iptu)
+        data.append('bairro', bairro)
+        data.append('dtVenc', dtVenc)
+        data.append('aUtil', aUtil)
+        data.append('vGaragem', vGaragem)
+        data.append('banh', banh)
+        data.append('suite', suite)
+        data.append('dorm', dorm)
+        data.append('churras', String(churras))
+        data.append('piscina', String(piscina))
+        data.append('playground', String(playground))
+        data.append('poli', String(poli))
+        data.append('sFestas', String(sFestas))
+        data.append('sauna', String(sauna))
+        data.append('sJogos', String(sJogos))
+        data.append('ativo', String(ativo))
+        data.append('atualizarFotos',String(atualizarFotos));
+
+        if (atualizarFotos) {
+
+            for (var i = 0; i < images.length; i++) {
+                data.append('images', images[i])
+            }
         }
 
         console.log(data);
-        
+
         try {
-            await api.post('/register', data, {
-                headers: {
-                    Authorization: "teste"
-                }
-            })
+            await api.post('/update/'+id, data);
 
 
         } catch (err) {
             alert('Erro ao tentar cadastrar usuario tente novamente ' + err);
             console.log(dataraw)
-        } 
+        }
     }
 
     const handleClickChurras = () => setChurras(!churras);
@@ -135,6 +152,7 @@ export default function Register() {
     const handleClickSauna = () => setSauna(!sauna);
     const handleClickSJogos = () => setSJogos(!sJogos);
     const handleClickAtivo = () => setAtivo(!ativo);
+    const handleClickAtualizaFotos = () => setAtualizarFotos(!atualizarFotos);
 
 
 
@@ -164,9 +182,16 @@ export default function Register() {
     } */
     const cookies = new Cookies();
     const history = useHistory();
-    if (cookies.get('aut')!==`${process.env.REACT_APP_TOKEN_AUT}`) {
+    if (cookies.get('aut') !== `${process.env.REACT_APP_TOKEN_AUT}`) {
         history.push('/login');
     }
+
+ 
+    
+    if(!apartment){
+        return <p>carregando....</p>
+    }
+    
 
 
     return (
@@ -178,7 +203,8 @@ export default function Register() {
                     <div className="register">
                         <form onSubmit={createAp}>
                             <p>Informações escondidos</p>
-                            <input type="text" name="bairro" value={bairro} onChange={e => setBairro(e.target.value)} placeholder="Bairro"/>
+                            
+                            <input type="text" name="bairro" defaultValue={apartment.bairro} onChange={e => setBairro(e.target.value)} placeholder="Bairro"/>
                             <input type="text" name="nmPredio" value={nmPredio} onChange={e => setNmPredio(e.target.value)} placeholder="Nome do Prédio" />
                             <input type="number" name="nrTorre" value={nrTorre} onChange={e => setNrTorre(e.target.value)} placeholder="Numero da Torre" />
                             <input type="text" name="nrApto" value={nrApto} onChange={e => setNrApto(e.target.value)} placeholder="Numero do Apartamento" />
@@ -220,11 +246,15 @@ export default function Register() {
                             <label htmlFor="sJogos">Salão de Jogos</label>
                             <input type="checkbox" name="sJogos" onClick={handleClickSJogos} checked={sJogos} />
 
+                            <p>Escolha suas fotos</p>
+                            <label htmlFor="atualizar fotos pro banco?">Apagar todas as fotos antigas e enviar novas pro banco?</label>
+                            <input type="checkbox" name="atualizaFotos" onClick={handleClickAtualizaFotos} checked={atualizarFotos} />
+                            <div>
 
+                                <input disabled={!atualizarFotos} type="file" name="images" multiple onChange={handleSelectedImages} />
 
-                            <input type="file" name="images" multiple  onChange={handleSelectedImages} />
-                            <input type="button" value="eaeea" onChange={e => createAp(e)} />
-                            <button className="button" type="submit">Cadastrar</button>
+                            </div>
+                            <button className="button" type="submit">Atualizar</button>
 
                         </form>
                     </div>
@@ -235,6 +265,7 @@ export default function Register() {
             <footer>
                 <p>Desenvolvido por Allan Cruvinel</p>
             </footer>
+
 
 
 

@@ -12,7 +12,9 @@ import { useParams } from 'react-router-dom';
 import firstPhoto from '../../assets/30682992.jpg';
 import secondPhoto from '../../assets/second.jpg';
 import thirdPhoto from '../../assets/third.jpg'
+import noImage from '../../assets/no-image-available.png';
 import api from '../../services/api';
+
 
 import './style.css';
 import 'react-slideshow-image/dist/styles.css'
@@ -20,9 +22,11 @@ import 'react-slideshow-image/dist/styles.css'
 
 
 export default function Immobile() {
+
     const { id } = useParams();
     const [apartment, setApartment] = useState();
     const history = useHistory();
+
     
     useEffect(() => {
         
@@ -42,6 +46,8 @@ export default function Immobile() {
         e.preventDefault()
         history.push(`/contact/${apartment.id}`);
     }
+
+    
     
 
 
@@ -58,7 +64,8 @@ export default function Immobile() {
 
 
                             <div className="immobilePhotoSection">
-                                <Fade >
+                                {apartment.images.length>0? (
+                                    <Fade >
                                     {apartment.images.map(apartment=>{
                                         return (
                                             <img className="immobilePhotos" src={apartment.url} alt="logo" />
@@ -66,6 +73,10 @@ export default function Immobile() {
                                     })}
                                 
                                 </Fade>
+                                ): (
+                                    <img className="immobilePhotos" src={noImage} alt="logo" />
+                                )}
+                                
 
                             </div>
                             <div className="immobileDivTitle">
