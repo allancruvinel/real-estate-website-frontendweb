@@ -42,6 +42,14 @@ export default function Immobile() {
         return <p>carregando...</p>;
     }
 
+    if(apartment.ativo === true && Date.now() < Date.parse(apartment.dtVenc)){
+
+    }
+    else{
+        alert('Anuncio Indisponivel')
+        history.push('/search');
+    }
+
     function contactAbout(e){
         e.preventDefault()
         history.push(`/contact/${apartment.id}`);

@@ -8,15 +8,42 @@ import { useParams } from 'react-router-dom';
 
 export default function Update() {
 
-
+    const cookies = new Cookies();
+    const history = useHistory();
     const { id } = useParams();
     const[apartment,setApartment] = useState()
 
-    useEffect(() => {
+    useEffect(async () => {
         
-        api.get(`apartments/${id}`).then(response => {
+        await api.get(`apartments/${id}`).then(response => {
             setApartment(response.data);
-        }) 
+            setBairro(response.data.bairro);
+            setTitulo(response.data.titulo);
+            setDescricao(response.data.descricao);
+            setNrApto(response.data.nrApto);
+            setNmPredio(response.data.nmPredio);
+            setNrTorre(response.data.nrTorre);
+            setPreco(response.data.preco);
+            setCond(response.data.cond);
+            setIptu(response.data.iptu);
+            setDtVenc(response.data.dtVenc.substring(0,10)); 
+            setAUtil(response.data.aUtil);
+            setVGaragem(response.data.vGaragem);
+            setBanh(response.data.banh);
+            setSuite(response.data.suite);
+            setDorm(response.data.dorm);
+            setChurras(response.data.churras);
+            setPiscina(response.data.piscina);
+            setPlayground(response.data.playground);
+            setPoli(response.data.poli);
+            setSFestas(response.data.sFestas);
+            setSauna(response.data.sauna);
+            setSJogos(response.data.sJogos);
+            setAtivo(response.data.ativo);
+        })
+        
+        
+        
     }, []);
 
 
@@ -94,9 +121,9 @@ export default function Update() {
             images
         }
 
-        alert(bairro);
+        
 
-        return;
+        
 
         const data = new FormData();
 
@@ -135,13 +162,18 @@ export default function Update() {
         console.log(data);
 
         try {
-            await api.post('/update/'+id, data);
+            await api.put('/apartments/'+id, data);
+            alert('Atualizado com sucesso');
+            
+            
 
 
         } catch (err) {
             alert('Erro ao tentar cadastrar usuario tente novamente ' + err);
             console.log(dataraw)
         }
+        
+        
     }
 
     const handleClickChurras = () => setChurras(!churras);
@@ -180,8 +212,7 @@ export default function Update() {
         alert("SAINDO DAQUI")
         axios.post('https://api.imgur.com/3/image',fd);
     } */
-    const cookies = new Cookies();
-    const history = useHistory();
+
     if (cookies.get('aut') !== `${process.env.REACT_APP_TOKEN_AUT}`) {
         history.push('/login');
     }
@@ -204,12 +235,12 @@ export default function Update() {
                         <form onSubmit={createAp}>
                             <p>Informações escondidos</p>
                             
-                            <input type="text" name="bairro" defaultValue={apartment.bairro} onChange={e => setBairro(e.target.value)} placeholder="Bairro"/>
+                            <input type="text" name="bairro" defaultValue={bairro} onChange={e => setBairro(e.target.value)} placeholder="Bairro"/>
                             <input type="text" name="nmPredio" value={nmPredio} onChange={e => setNmPredio(e.target.value)} placeholder="Nome do Prédio" />
                             <input type="number" name="nrTorre" value={nrTorre} onChange={e => setNrTorre(e.target.value)} placeholder="Numero da Torre" />
                             <input type="text" name="nrApto" value={nrApto} onChange={e => setNrApto(e.target.value)} placeholder="Numero do Apartamento" />
                             <label htmlFor="dtVenc">Vencimento</label>
-                            <input type="date" name="dtVenc" value={dtVenc} onChange={e => setDtVenc(e.target.value)} />
+                                <input type="date" name="dtVenc" value={dtVenc} onChange={e => setDtVenc(e.target.value)} />
                             <label htmlFor="ativo">Venda ativa</label>
                             <input type="checkbox" name="ativo" onClick={handleClickAtivo} checked={ativo} />
 
