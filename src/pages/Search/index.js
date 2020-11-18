@@ -26,17 +26,24 @@ export default function Home() {
     useEffect(() => {
         if (cookies.get('aut') === `${process.env.REACT_APP_TOKEN_AUT}`) {
             setIsLogged(true);
+            api.get('search/').then(response => {
+
+                setApartments(response.data);
+
+            })
+
+            
+        }
+        else {
+            api.get('search/').then(response => {
+
+                setApartments(response.data.filter(response => response.ativo === true && Date.now() < Date.parse(response.dtVenc)))
+
+            })
 
         }
 
-        api.get('search/' + parametro).then(response => {
-            if (!isLogged) {
-                setApartments(response.data.filter(response => response.ativo === true && Date.now() < Date.parse(response.dtVenc)))
-            }
-            else {
-                setApartments(response.data);
-            }
-        })
+
 
 
 
@@ -74,7 +81,7 @@ export default function Home() {
                 if (!isLogged) {
                     history.push('/apartments/' + referencia);
                 }
-                else{
+                else {
                     history.push('/update/' + referencia);
                 }
 
@@ -144,11 +151,11 @@ export default function Home() {
                                 apartments.map(apartment => {
                                     return (
 
-                                        <Link to={`/apartments/${apartment.id}`}>
+                                        <Link key={apartment.id} to={`/apartments/${apartment.id}`}>
                                             {apartment.images.length > 0 ? (
                                                 <div className="immobileSearch" style={{ backgroundImage: `url("${apartment.images[0].url}")` }}>
 
-                                                    <p className="immobileTitle">{apartment.titulo}</p><p className="immobilePrice">R${apartment.preco}</p>
+                                                    <p className="immobileTitle">{apartment.titulo}</p><p className="immobilePrice">{Intl.NumberFormat('pt-BR',{style: 'currency', currency: 'BRL'}).format(apartment.preco)}</p>
                                                     {isLogged ? (
                                                         <div>
                                                             <Link className="immobileErase" onClick={() => handleDeleteApartment(apartment.id)} type="button">

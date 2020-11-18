@@ -116,14 +116,14 @@ export default function Immobile() {
                                 </table>
 
                                 <p className="tituloAtributo">cond</p>
-                                <p className="valorAtributo">R${apartment.cond}</p>
+                                <p className="valorAtributo">{Intl.NumberFormat('pt-BR',{style: 'currency', currency: 'BRL'}).format(apartment.cond)}</p>
 
 
                                 <p className="tituloAtributo">IPTU</p>
-                                <p className="valorAtributo">R${apartment.iptu}</p>
+                                <p className="valorAtributo">{Intl.NumberFormat('pt-BR',{style: 'currency', currency: 'BRL'}).format(apartment.iptu)}</p>
 
                                 <p className="tituloAtributo">Valor:</p>
-                                <p className="immobilePrice">R${apartment.preco}</p>
+                                <p className="immobilePrice">{Intl.NumberFormat('pt-BR',{style: 'currency', currency: 'BRL'}).format(apartment.preco)}</p>
                                 <div className="contatarAnunciante">
                                     <button onClick={contactAbout}><p>Contatar anunciante</p></button>
                                 </div>

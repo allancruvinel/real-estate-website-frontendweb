@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import Header from '../../components/Header';
 import '../Register/style.css'
 import api from '../../services/api';
@@ -34,6 +34,7 @@ export default function Register() {
     const [sauna, setSauna] = useState(false);
     const [sJogos, setSJogos] = useState(false);
     const [ativo, setAtivo] = useState(false);
+    const [btn,setBtn] = useState(false);
     const [images, setImages] = useState([])
 
     function handleSelectedImages(event) {
@@ -42,16 +43,30 @@ export default function Register() {
             console.log('entrounoNull')
             return;
         }
-        
+
         const imagesrendered = event.target.files
 
         setImages(imagesrendered)
-        
+
         console.log(images);
     }
 
     async function createAp(e) {
         e.preventDefault();
+        
+        console.log(dtVenc);
+        if (titulo === '' || descricao === '' || nrApto === '' || nmPredio === '' || nrTorre === '' || preco === '' || cond === '' || iptu === '' || bairro === '' || dtVenc === '' || aUtil === '' || vGaragem === '' || banh === '' || suite === '' || dorm === '') {
+            alert('preencha todos os campos!')
+            return null;
+        }
+        if(images.length===0){
+            alert('Insira ao menos uma imagem');
+            return null;
+        }
+
+        setBtn(true);
+
+
         const dataraw = {
             titulo,
             descricao,
@@ -83,48 +98,52 @@ export default function Register() {
 
         const data = new FormData();
 
-        data.append('titulo',titulo)
-        data.append('descricao',descricao)
-        data.append('nrApto',nrApto)
-        data.append('nmPredio',nmPredio)
-        data.append('nrTorre',nrTorre)
-        data.append('preco',preco)
-        data.append('cond',cond)
-        data.append('iptu',iptu)
-        data.append('bairro',bairro)
-        data.append('dtVenc',dtVenc)
-        data.append('aUtil',aUtil)
-        data.append('vGaragem',vGaragem)
-        data.append('banh',banh)
-        data.append('suite',suite)
-        data.append('dorm',dorm)
-        data.append('churras',String(churras))
-        data.append('piscina',String(piscina))
-        data.append('playground',String(playground))
-        data.append('poli',String(poli))
-        data.append('sFestas',String(sFestas))
-        data.append('sauna',String(sauna))
-        data.append('sJogos',String(sJogos))
-        data.append('ativo',String(ativo))
-        
-        for(var i = 0; i<images.length;i++){
-            data.append('images',images[i])
+        data.append('titulo', titulo)
+        data.append('descricao', descricao)
+        data.append('nrApto', nrApto)
+        data.append('nmPredio', nmPredio)
+        data.append('nrTorre', nrTorre)
+        data.append('preco', preco)
+        data.append('cond', cond)
+        data.append('iptu', iptu)
+        data.append('bairro', bairro)
+        data.append('dtVenc', dtVenc)
+        data.append('aUtil', aUtil)
+        data.append('vGaragem', vGaragem)
+        data.append('banh', banh)
+        data.append('suite', suite)
+        data.append('dorm', dorm)
+        data.append('churras', String(churras))
+        data.append('piscina', String(piscina))
+        data.append('playground', String(playground))
+        data.append('poli', String(poli))
+        data.append('sFestas', String(sFestas))
+        data.append('sauna', String(sauna))
+        data.append('sJogos', String(sJogos))
+        data.append('ativo', String(ativo))
+
+        for (var i = 0; i < images.length; i++) {
+            data.append('images', images[i])
         }
 
         console.log(data);
-        
+
         try {
             await api.post('/register', data, {
                 headers: {
                     Authorization: "teste"
                 }
             })
+            alert('cadastrado com sucesso!')
+            setBtn(false);
+            history.push('/search')
+
 
 
         } catch (err) {
             alert('Erro ao tentar cadastrar usuario tente novamente ' + err);
             console.log(dataraw)
-        } 
+        }
     }
 
     const handleClickChurras = () => setChurras(!churras);
@@ -164,7 +183,7 @@ export default function Register() {
     } */
     const cookies = new Cookies();
     const history = useHistory();
-    if (cookies.get('aut')!==`${process.env.REACT_APP_TOKEN_AUT}`) {
+    if (cookies.get('aut') !== `${process.env.REACT_APP_TOKEN_AUT}`) {
         history.push('/login');
     }
 
@@ -178,7 +197,7 @@ export default function Register() {
                     <div className="register">
                         <form onSubmit={createAp}>
                             <p>Informações escondidos</p>
-                            <input type="text" name="bairro" value={bairro} onChange={e => setBairro(e.target.value)} placeholder="Bairro"/>
+                            <input type="text" name="bairro" value={bairro} onChange={e => setBairro(e.target.value)} placeholder="Bairro" />
                             <input type="text" name="nmPredio" value={nmPredio} onChange={e => setNmPredio(e.target.value)} placeholder="Nome do Prédio" />
                             <input type="number" name="nrTorre" value={nrTorre} onChange={e => setNrTorre(e.target.value)} placeholder="Numero da Torre" />
                             <input type="text" name="nrApto" value={nrApto} onChange={e => setNrApto(e.target.value)} placeholder="Numero do Apartamento" />
@@ -222,9 +241,9 @@ export default function Register() {
 
 
 
-                            <input type="file" name="images" multiple  onChange={handleSelectedImages} />
-                            <input type="button" value="eaeea" onChange={e => createAp(e)} />
-                            <button className="button" type="submit">Cadastrar</button>
+                            <input type="file" name="images" multiple onChange={handleSelectedImages} />
+
+                            <button disabled={btn} className="button" type="submit">Cadastrar</button>
 
                         </form>
                     </div>

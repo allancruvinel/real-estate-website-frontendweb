@@ -13,9 +13,35 @@ export default function Update() {
     const { id } = useParams();
     const[apartment,setApartment] = useState()
 
-    useEffect(async () => {
+    const [titulo, setTitulo] = useState('');
+    const [descricao, setDescricao] = useState('');
+    const [nrApto, setNrApto] = useState('');
+    const [nmPredio, setNmPredio] = useState('');
+    const [nrTorre, setNrTorre] = useState('');
+    const [preco, setPreco] = useState('');
+    const [cond, setCond] = useState('');
+    const [iptu, setIptu] = useState('');
+    const [bairro, setBairro] = useState('');
+    const [dtVenc, setDtVenc] = useState(Date);
+    const [aUtil, setAUtil] = useState('');
+    const [vGaragem, setVGaragem] = useState('');
+    const [banh, setBanh] = useState('');
+    const [suite, setSuite] = useState('');
+    const [dorm, setDorm] = useState('');
+    const [churras, setChurras] = useState(false);
+    const [piscina, setPiscina] = useState(false);
+    const [playground, setPlayground] = useState(false);
+    const [poli, setPoli] = useState(false);
+    const [sFestas, setSFestas] = useState(false);
+    const [sauna, setSauna] = useState(false);
+    const [sJogos, setSJogos] = useState(false);
+    const [ativo, setAtivo] = useState(false);
+    const [btn,setBtn] = useState(false);
+    const [images, setImages] = useState([])
+
+    useEffect(() => {
         
-        await api.get(`apartments/${id}`).then(response => {
+            api.get(`apartments/${id}`).then(response => {
             setApartment(response.data);
             setBairro(response.data.bairro);
             setTitulo(response.data.titulo);
@@ -47,30 +73,7 @@ export default function Update() {
     }, []);
 
 
-    const [titulo, setTitulo] = useState('');
-    const [descricao, setDescricao] = useState('');
-    const [nrApto, setNrApto] = useState('');
-    const [nmPredio, setNmPredio] = useState('');
-    const [nrTorre, setNrTorre] = useState('');
-    const [preco, setPreco] = useState('');
-    const [cond, setCond] = useState('');
-    const [iptu, setIptu] = useState('');
-    const [bairro, setBairro] = useState('');
-    const [dtVenc, setDtVenc] = useState(Date);
-    const [aUtil, setAUtil] = useState('');
-    const [vGaragem, setVGaragem] = useState('');
-    const [banh, setBanh] = useState('');
-    const [suite, setSuite] = useState('');
-    const [dorm, setDorm] = useState('');
-    const [churras, setChurras] = useState(false);
-    const [piscina, setPiscina] = useState(false);
-    const [playground, setPlayground] = useState(false);
-    const [poli, setPoli] = useState(false);
-    const [sFestas, setSFestas] = useState(false);
-    const [sauna, setSauna] = useState(false);
-    const [sJogos, setSJogos] = useState(false);
-    const [ativo, setAtivo] = useState(false);
-    const [images, setImages] = useState([])
+    
 
 
 
@@ -94,6 +97,14 @@ export default function Update() {
 
     async function createAp(e) {
         e.preventDefault();
+
+        if (titulo === '' || descricao === '' || nrApto === '' || nmPredio === '' || nrTorre === '' || preco === '' || cond === '' || iptu === '' || bairro === '' || dtVenc === '' || aUtil === '' || vGaragem === '' || banh === '' || suite === '' || dorm === '') {
+            alert('preencha todos os campos!')
+            return null;
+        }
+
+        setBtn(true);
+
         const dataraw = {
             titulo,
             descricao,
@@ -164,6 +175,8 @@ export default function Update() {
         try {
             await api.put('/apartments/'+id, data);
             alert('Atualizado com sucesso');
+            setBtn(false);
+            history.push('/search')
             
             
 
@@ -285,7 +298,7 @@ export default function Update() {
                                 <input disabled={!atualizarFotos} type="file" name="images" multiple onChange={handleSelectedImages} />
 
                             </div>
-                            <button className="button" type="submit">Atualizar</button>
+                            <button disabled={btn} className="button" type="submit">Atualizar</button>
 
                         </form>
                     </div>
